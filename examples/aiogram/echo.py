@@ -5,13 +5,11 @@ from aiogram.utils import executor
 from config import tg_token, proxy
 import sys
 
-if not tg_token:
-    print("Enter Telegram token to 'config.py' file...")
-    sys.exit()
-if proxy:
-    bot = Bot(token=tg_token, proxy=proxy)
-else:
-    bot = Bot(token=tg_token)
+
+bot = Bot(token=tg_token) if proxy is None else \
+Bot(token=tg_token, proxy=proxy) if proxy_auth is None else \
+Bot(token=tg_token, proxy=proxy, proxy_auth=proxy_auth)
+
 dp = Dispatcher(bot)
 
 @dp.message_handler(commands=['start', 'help'])
